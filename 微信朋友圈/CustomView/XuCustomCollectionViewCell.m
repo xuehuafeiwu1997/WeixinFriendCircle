@@ -28,6 +28,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     _img.frame = self.contentView.frame;
+    //NSLog(@"UICollectionViewCell的大小为：%@",self.contentView.frame);
 }
 
 @end

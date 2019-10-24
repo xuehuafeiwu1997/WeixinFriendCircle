@@ -296,12 +296,12 @@
 		B6EDE7ED23222EFE00117D5D /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				B6EDE800232237C200117D5D /* XuCustomTableViewCell.h */,
-				B6EDE801232237C200117D5D /* XuCustomTableViewCell.m */,
 				B6EDE803232244DB00117D5D /* XuToolBarView.h */,
 				B6EDE804232244DB00117D5D /* XuToolBarView.m */,
 				B6EDE80623224D0700117D5D /* XuCustomCollectionViewCell.h */,
 				B6EDE80723224D0700117D5D /* XuCustomCollectionViewCell.m */,
+				B6EDE800232237C200117D5D /* XuCustomTableViewCell.h */,
+				B6EDE801232237C200117D5D /* XuCustomTableViewCell.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";

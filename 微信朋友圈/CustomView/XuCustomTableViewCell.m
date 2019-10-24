@@ -17,7 +17,7 @@
 #define item_num 3
 #define pading 10
 
-@interface XuCustomTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,SDPhotoBrowserDelegate,btnClickedDelegate>
+@interface XuCustomTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,SDPhotoBrowserDelegate,btnClickedDelegate,UICollectionViewDelegateFlowLayout>
 
 @end
 
@@ -146,6 +146,7 @@
     [_textContentL setColumnSpace:2.0];
     [_textContentL setRowSpace:10.0];
     //这里目前没有调用
+    [self reloadCell:model.imageArr isShowMore:model.isShowMore];
 }
 
 - (void)reloadCell:(NSArray *)imgArr isShowMore:(BOOL)isShowMore {
@@ -289,6 +290,7 @@
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [_collectionView registerClass:[XuCustomCollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
+        
     }
     return _collectionView;
 }
@@ -324,6 +326,7 @@
 //点击展开/收起全文
 - (void)foldNewOrNoTap:(UIButton *)recognizer {
     
+    //代理回调
     if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(clickFoldLabel:)]) {
         [self.cellDelegate clickFoldLabel:self];
     }
@@ -331,7 +334,14 @@
 
 #pragma mark - UICollectionViewDelegate/UICollectionViewDataSource
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
+    return 1;
+}
+
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSLog(@"UICollectionView总共有%lu个",(unsigned long)self.model.imageArr.count);
     return self.model.imageArr.count;
 }
 ////这是错误的地方,UIColletionView 协议的方法搞错，这是设置有多少组，应该设置有多少个方块
@@ -341,11 +351,19 @@
 //    return self.model.imageArr.count;
 //}
 
+/**
+ 这里图片赋值出错，这个方法没有调用，
+ */
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     XuCustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellid" forIndexPath:indexPath];
     
     NSArray *tagArr = self.model.imageArr;
+    
+//    for (int i = 0; i < _model.imageArr.count; i++) {
+//        NSLog(@"model里面第%d个照片的对象是:%@",i,self.model.imageArr[i]);
+//    }
+    
     cell.img.image = [UIImage imageNamed:tagArr[indexPath.row]];
     
     return cell;
